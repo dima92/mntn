@@ -1,0 +1,122 @@
+@use "sass:math";
+@use "sass:meta";
+@use "sass:string";
+@use "./functions" as *;
+@use "./media" as *;
+
+// 1. АДАПТИВНЫЙ ТЕКСТ (С улучшенным line-height)
+@mixin fluid-text($max: 68, $min: 14, $line-height: null) {
+  font-size: fluid($max, $min);
+
+  @if $line-height {
+    @if math.is-unitless($line-height) {
+      line-height: $line-height;
+    } @else {
+      // Если line-height задан в px, превращаем его в rem для стабильности
+      $unit: math.unit($line-height);
+      @if $unit == "px" {
+        line-height: to-rem($line-height);
+      } @else {
+        line-height: $line-height;
+      }
+    }
+  }
+}
+
+// 2. БЫСТРЫЙ ФЛЕКС-ЦЕНТР
+@mixin flex(
+  $direction: row,
+  $justify: center,
+  $align: center,
+  $gap: null,
+  $wrap: null,
+  $isInline: false
+) {
+  display: if($isInline, inline-flex, flex);
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+
+  @if $wrap {
+    flex-wrap: $wrap;
+  }
+
+  @if $gap {
+    // Если gap — это clamp, fluid() или уже имеет сложные единицы
+    @if meta.type-of($gap) ==
+      "string" or
+      string.index(meta.inspect($gap), "clamp") or
+      string.index(meta.inspect($gap), "calc")
+    {
+      gap: $gap;
+    } @else if
+      meta.type-of($gap) ==
+      "number" and not
+      math.is-unitless($gap) and
+      math.unit($gap) !=
+      "px"
+    {
+      gap: $gap; // оставляем как есть (rem, em, vw)
+    } @else {
+      gap: to-rem($gap);
+    }
+  }
+}
+
+// 3. Универсальный CSS Grid
+@mixin grid($cols: 1, $gap: 0, $rows: null, $align: null, $justify: null) {
+  display: grid;
+
+  // Обработка колонок
+  @if meta.type-of($cols) == "string" or meta.type-of($cols) == "list" {
+    grid-template-columns: $cols;
+  } @else if meta.type-of($cols) == "number" and math.is-unitless($cols) {
+    grid-template-columns: repeat($cols, 1fr);
+  } @else {
+    grid-template-columns: repeat(auto-fit, minmax(to-rem($cols), 1fr));
+  }
+
+  // Обработка gap
+  @if $gap {
+    @if meta.type-of($gap) ==
+      "string" or
+      string.index(meta.inspect($gap), "clamp")
+    {
+      gap: $gap;
+    } @else {
+      gap: to-rem($gap);
+    }
+  }
+
+  // Обработка рядов
+  @if $rows {
+    @if meta.type-of($rows) == "string" or meta.type-of($rows) == "list" {
+      grid-template-rows: $rows;
+    } @else if meta.type-of($rows) == "number" and math.is-unitless($rows) {
+      grid-template-rows: repeat($rows, 1fr);
+    } @else {
+      grid-template-rows: $rows;
+    }
+  }
+
+  @if $align {
+    align-items: $align;
+  }
+  @if $justify {
+    justify-items: $justify;
+  }
+}
+
+// 4. СКРЫТЫЙ ЭЛЕМЕНТ
+@mixin visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  margin: -1px !important;
+  border: 0 !important;
+  padding: 0 !important;
+  white-space: nowrap !important;
+  clip-path: inset(100%) !important;
+  clip: rect(0 0 0 0) !important;
+  overflow: hidden !important;
+}

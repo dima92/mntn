@@ -1,0 +1,34 @@
+@use "../helpers" as *;
+@use "../variables" as *;
+
+.slider {
+  background-color: transparent;
+  position: fixed;
+  right: 0;
+  top: calc(50% - to-rem(124));
+  z-index: 10;
+
+  @include respond-to("tablet") {
+    display: none;
+  }
+
+  &__list {
+    margin-right: to-rem(80);
+  }
+
+  &__item {
+    padding: to-rem(20) to-rem(32) to-rem(20) 0;
+    border-right: 3px solid;
+    border-color: rgba($white-color, 0.5);
+    text-align: right;
+
+    &--active {
+      border-color: rgba($white-color, 1);
+      transition: border-color $transition-duration ease-in-out;
+    }
+  }
+
+  &__link {
+    text-align: right;
+  }
+}

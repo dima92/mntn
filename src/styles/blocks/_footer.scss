@@ -1,0 +1,96 @@
+@use "../helpers" as *;
+@use "../variables" as *;
+
+.footer {
+  background-color: $bg-color;
+  padding-bottom: to-rem(120);
+
+  @include respond-to("tablet") {
+    padding-bottom: to-rem(60);
+  }
+
+  &__content {
+    display: flex;
+    justify-content: space-between;
+    gap: to-rem(20);
+
+    @include respond-to("tablet") {
+      flex-direction: column-reverse;
+      gap: to-rem(50);
+    }
+  }
+
+  &__inner {
+    &--one {
+      @include respond-to("tablet") {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+    &--two {
+      display: flex;
+      gap: to-rem(200);
+      justify-content: space-between;
+
+      @include respond-to("tablet") {
+        gap: to-rem(15);
+        justify-content: space-around;
+      }
+    }
+  }
+
+  &__logo {
+    display: block;
+    margin-bottom: to-rem(24);
+  }
+
+  &__descr {
+    margin: 0;
+    margin-bottom: to-rem(122);
+    max-width: to-rem(305);
+    line-height: to-rem(32);
+
+    @include respond-to("tablet") {
+      font-size: to-rem(14);
+    }
+  }
+
+  &__copyright {
+    margin: 0;
+    opacity: 0.5;
+    font-weight: 500;
+    line-height: to-rem(32);
+    color: $white-color;
+
+    @include respond-to("tablet") {
+      font-size: to-rem(14);
+    }
+  }
+
+  &__subtitle {
+    margin: 0;
+    margin-bottom: to-rem(24);
+    font-size: to-rem(24);
+    line-height: to-rem(32);
+
+    @include respond-to("tablet") {
+      font-size: to-rem(16);
+    }
+  }
+
+  &__link {
+    font-weight: 500;
+    line-height: to-rem(32);
+
+    @include respond-to("tablet") {
+      font-size: to-rem(14);
+    }
+  }
+
+  &__item {
+    &:not(:last-child) {
+      margin-bottom: to-rem(16);
+    }
+  }
+}

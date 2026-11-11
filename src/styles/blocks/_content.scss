@@ -1,0 +1,85 @@
+@use "../helpers" as *;
+@use "../variables" as *;
+
+.content {
+  background-color: #0b1d26;
+
+  &__wrapper {
+    background-color: #0b1d26;
+    padding-bottom: 200px;
+    margin-bottom: -2px;
+  }
+
+  &__box {
+    position: relative;
+    padding-top: 200px;
+    z-index: 3;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__inner {
+    position: relative;
+    padding: 140px 0px 140px 150px;
+    z-index: 10;
+    max-width: 773px;
+    background-image: url(/src/assets/icons/number-1.svg);
+    background-repeat: no-repeat;
+    background-position: 10px 75px;
+
+    &--two {
+      background-image: url(/src/assets/icons/number-2.svg);
+    }
+
+    &--three {
+      background-image: url(/src/assets/icons/number-3.svg);
+    }
+  }
+
+  &__title {
+    margin: 0;
+    position: relative;
+    z-index: 10;
+    margin-bottom: 27px;
+    font-family: "Chronicle Display", sans-serif;
+    font-size: 64px;
+    font-weight: 600;
+    line-height: normal;
+    color: var(--light-color);
+  }
+
+  &__text {
+    margin: 0;
+    margin-bottom: 27px;
+    font-family: "Gilroy", sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 32px;
+    color: var(--light-color);
+  }
+
+  &__link {
+    position: relative;
+    padding-right: 40px;
+    font-family: "Gilroy", sans-serif;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    color: var(--main-color);
+
+    &::after {
+      content: "";
+      position: absolute;
+      background-image: url(../img/arrow-main.svg);
+      width: 24px;
+      height: 16px;
+      right: 0;
+      top: 4px;
+    }
+  }
+
+  &__img {
+    align-items: center;
+  }
+}

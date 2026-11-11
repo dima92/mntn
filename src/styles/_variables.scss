@@ -1,0 +1,21 @@
+@use "helpers/functions" as *;
+
+// Сетка
+$container-width: 1462;
+$container-padding-x: 15;
+
+// Анимации
+$transition-duration: 0.3s;
+$transition-base: all $transition-duration ease-in-out;
+
+// Шрифты
+$font-family: "Gilroy", sans-serif;
+$second-family: "Chronicle Display", sans-serif;
+
+// ==========================================================================
+// ЦВЕТОВАЯ ПАЛИТРА (UI-KIT) — ПРОЕКТ MNTN
+// ==========================================================================
+
+$white-color: #fff;
+$bg-color: #0b1d26;
+$accent-color: #fbd784;
